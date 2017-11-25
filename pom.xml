@@ -184,6 +184,14 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-lang/commons-lang -->
+		<!-- 封装的有String公有的方法 -->
+		<dependency>
+		    <groupId>commons-lang</groupId>
+		    <artifactId>commons-lang</artifactId>
+		    <version>2.6</version>
+		</dependency>
+		
 		<!-- activiti相关的jar包 -->
 		<dependency>
 			<groupId>org.activiti</groupId>
