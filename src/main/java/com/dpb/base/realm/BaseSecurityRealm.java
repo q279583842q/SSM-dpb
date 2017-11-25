@@ -11,7 +11,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 
 import com.dpb.base.dto.UserBeanDto;
-import com.dpb.base.service.impl.IUserService;
+import com.dpb.base.service.IUserService;
 
 public class BaseSecurityRealm extends AuthorizingRealm{
 	

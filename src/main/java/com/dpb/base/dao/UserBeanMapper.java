@@ -1,5 +1,7 @@
 package com.dpb.base.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.dpb.base.dto.UserBeanDto;
@@ -24,4 +26,11 @@ public interface UserBeanMapper {
      * @return
      */
     UserBeanDto login(@Param("userName")String userName);
+    
+    /**
+     * 查询用户信息
+     * @param user
+     * @return
+     */
+    List<UserBeanDto> query(UserBean user);
 }

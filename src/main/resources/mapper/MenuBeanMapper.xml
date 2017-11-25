@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dpb.base.dao.MenuBeanMapper">
+  <resultMap id="BaseResultMap" type="com.dpb.base.model.MenuBean">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="MENUNAME" jdbcType="VARCHAR" property="menuname" />
+    <result column="MENULINK" jdbcType="VARCHAR" property="menulink" />
+    <result column="PID" jdbcType="DECIMAL" property="pid" />
+    <result column="SECURYNAME" jdbcType="VARCHAR" property="securyname" />
+    <result column="MEMO" jdbcType="VARCHAR" property="memo" />
+    <result column="ISDEL" jdbcType="DECIMAL" property="isdel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, MENUNAME, MENULINK, PID, SECURYNAME, MEMO, ISDEL
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CAR.T_MENU
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <select id="queryByUserIdList" parameterType="int" resultType="com.dpb.base.model.MenuBean">
+  	select *
+	  from t_menu
+	 where pid = #{parentId}
+	   and id in
+	       (select menuid
+	          from t_role_menu
+	         where roleid in (select roleid from t_user_role where userid = #{userId}))
+
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from CAR.T_MENU
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.dpb.base.model.MenuBean">
+    insert into CAR.T_MENU (ID, MENUNAME, MENULINK, 
+      PID, SECURYNAME, MEMO, 
+      ISDEL)
+    values (#{id,jdbcType=DECIMAL}, #{menuname,jdbcType=VARCHAR}, #{menulink,jdbcType=VARCHAR}, 
+      #{pid,jdbcType=DECIMAL}, #{securyname,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, 
+      #{isdel,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dpb.base.model.MenuBean">
+    insert into CAR.T_MENU
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="menuname != null">
+        MENUNAME,
+      </if>
+      <if test="menulink != null">
+        MENULINK,
+      </if>
+      <if test="pid != null">
+        PID,
+      </if>
+      <if test="securyname != null">
+        SECURYNAME,
+      </if>
+      <if test="memo != null">
+        MEMO,
+      </if>
+      <if test="isdel != null">
+        ISDEL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="menuname != null">
+        #{menuname,jdbcType=VARCHAR},
+      </if>
+      <if test="menulink != null">
+        #{menulink,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=DECIMAL},
+      </if>
+      <if test="securyname != null">
+        #{securyname,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="isdel != null">
+        #{isdel,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dpb.base.model.MenuBean">
+    update CAR.T_MENU
+    <set>
+      <if test="menuname != null">
+        MENUNAME = #{menuname,jdbcType=VARCHAR},
+      </if>
+      <if test="menulink != null">
+        MENULINK = #{menulink,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        PID = #{pid,jdbcType=DECIMAL},
+      </if>
+      <if test="securyname != null">
+        SECURYNAME = #{securyname,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        MEMO = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="isdel != null">
+        ISDEL = #{isdel,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dpb.base.model.MenuBean">
+    update CAR.T_MENU
+    set MENUNAME = #{menuname,jdbcType=VARCHAR},
+      MENULINK = #{menulink,jdbcType=VARCHAR},
+      PID = #{pid,jdbcType=DECIMAL},
+      SECURYNAME = #{securyname,jdbcType=VARCHAR},
+      MEMO = #{memo,jdbcType=VARCHAR},
+      ISDEL = #{isdel,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -37,6 +37,22 @@
  	 from t_user t1  left join t_department t2 on t1.depid = t2.id
   	 where username = #{userName}
   </select>
+  
+  <select id="query" parameterType="com.dpb.base.model.UserBean" resultMap="LoginResultMap">
+  	select 
+  	 	t1.ID,USERNAME, PWD, REALNAME, SEX, DEPID, PHONE, t2.name deptname
+ 	 from t_user t1  left join t_department t2 on t1.depid = t2.id
+  	 <where>
+  	 	<if test="username != null and userName!=''">
+  	 		and username = #{userName}
+  	 	</if>
+  	 	<if test="realname!=null and realname!=''">
+  	 		and realname = #{realname}
+  	 	</if>
+  	 	
+  	 </where>
+  </select> 
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from T_USER
     where ID = #{id,jdbcType=DECIMAL}

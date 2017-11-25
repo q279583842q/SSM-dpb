@@ -71,6 +71,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		    closable:true
     		});
     	}
+    	$(function(){
+    		$("#tt").tree({
+        		url:"<%=basePath%>getTreeNode",
+        		onClick: function(node){
+        			if(node.url != null){
+        				//window.location.href=<%=basePath%>+node.url;
+        				// 打开一个新的窗口
+        				$('#tabs').tabs('add',{
+        				    title:node.text,
+        				    content:'<iframe src="<%=basePath%>'+node.url+'" width="99.5%" height="99%"></iframe>',
+        				    closable:true
+        				});
+        			}
+        			//alert(node.url);  // alert node text property when clicked
+        		}
+        	});
+    	});
+    	
     </script>
     
 </body>

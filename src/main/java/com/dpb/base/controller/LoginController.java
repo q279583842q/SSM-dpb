@@ -1,6 +1,10 @@
 package com.dpb.base.controller;
 
+import java.util.List;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -9,11 +13,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dpb.base.dto.UserBeanDto;
+import com.dpb.base.model.MenuTreeBean;
 import com.dpb.base.model.UserBean;
+import com.dpb.base.service.IMenuService;
 
 @Controller
 @RequestMapping("/")
 public class LoginController {
+	@Resource
+	private IMenuService menuService;
 
 	@RequestMapping("/login")
 	@ResponseBody
@@ -37,5 +46,16 @@ public class LoginController {
 		Subject subject = SecurityUtils.getSubject();
 		subject.logout();
 		return request.getContextPath()+"/login.jsp";
+	}
+	/**
+	 * 查询当前用户具有的所有的菜单信息
+	 * @return
+	 */
+	@RequestMapping("/getTreeNode")
+	@ResponseBody
+	public List<MenuTreeBean> getTreeNode(HttpServletRequest request ,HttpServletResponse response){
+		UserBeanDto user = (UserBeanDto) request.getSession().getAttribute("user");
+		List<MenuTreeBean> list = menuService.queryByUserIdList(user.getUser().getId());
+		return list;
 	}
 }

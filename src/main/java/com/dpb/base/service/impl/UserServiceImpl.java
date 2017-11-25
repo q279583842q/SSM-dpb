@@ -1,5 +1,7 @@
 package com.dpb.base.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.dpb.base.dao.UserBeanMapper;
 import com.dpb.base.dto.UserBeanDto;
 import com.dpb.base.model.UserBean;
+import com.dpb.base.service.IUserService;
 @Service
 public class UserServiceImpl implements IUserService {
 	
@@ -53,6 +56,12 @@ public class UserServiceImpl implements IUserService {
 	public UserBeanDto login(String userName) {
 		// TODO Auto-generated method stub
 		return dao.login(userName);
+	}
+
+	@Override
+	public List<UserBeanDto> query(UserBean user) {
+		// TODO Auto-generated method stub
+		return dao.query(user);
 	}
 
 }
