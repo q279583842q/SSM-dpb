@@ -31,16 +31,16 @@
 		<property name="dataSource" ref="dataSource"></property>
 		<!-- 加载mybatis.cfg.xml文件 -->
 		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml"></property>
-		<!-- 自动扫描需要定义类别名的包，将包内的JAVA类的类名作为类别名 -->
-		<property name="typeAliasesPackage" value="com.zl.model"></property>
+		<!-- 自动扫描需要定义类别名的包，将包内的JAVA类的类名作为类别名 
+		<property name="typeAliasesPackage" value="com.dpb.base.model"></property>-->
 		<!-- 制定映射文件的位置 -->
 		<property name="mapperLocations" value="classpath:mapper/*.xml"></property>
 	</bean>
 	<!-- 自动扫描所有的Mapper接口与文件 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.zl.mapper"></property>
+		<property name="basePackage" value="com.dpb.base.dao,com.dpb.assign.dao"></property>
 	</bean>
-
+	
 	<!-- 事务的配置 -->
 	<bean id="txManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

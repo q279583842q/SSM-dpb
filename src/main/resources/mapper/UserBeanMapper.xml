@@ -10,6 +10,18 @@
     <result column="DEPID" jdbcType="DECIMAL" property="depid" />
     <result column="PHONE" jdbcType="VARCHAR" property="phone" />
   </resultMap>
+  
+  <resultMap id="LoginResultMap" type="com.dpb.base.dto.UserBeanDto">
+    <id column="ID" jdbcType="DECIMAL" property="user.id" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="user.username" />
+    <result column="PWD" jdbcType="VARCHAR" property="user.pwd" />
+    <result column="REALNAME" jdbcType="VARCHAR" property="user.realname" />
+    <result column="SEX" jdbcType="VARCHAR" property="user.sex" />
+    <result column="DEPID" jdbcType="DECIMAL" property="user.depid" />
+    <result column="PHONE" jdbcType="VARCHAR" property="user.phone" />
+    <result column="deptname" jdbcType="VARCHAR" property="deptName" />
+  </resultMap>
+  
   <sql id="Base_Column_List">
     ID, USERNAME, PWD, REALNAME, SEX, DEPID, PHONE
   </sql>
@@ -18,6 +30,12 @@
     <include refid="Base_Column_List" />
     from T_USER
     where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <select id="login" parameterType="map" resultMap="LoginResultMap">
+  	 select 
+  	 	t1.ID,USERNAME, PWD, REALNAME, SEX, DEPID, PHONE, t2.name deptname
+ 	 from t_user t1  left join t_department t2 on t1.depid = t2.id
+  	 where username = #{userName}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from T_USER
