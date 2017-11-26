@@ -27,7 +27,6 @@ public class LoginController {
 	@RequestMapping("/login")
 	@ResponseBody
 	public String login(UserBean user, HttpServletRequest request){
-		System.out.println("----");
 		Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPwd());
         try{
@@ -55,7 +54,7 @@ public class LoginController {
 	@ResponseBody
 	public List<MenuTreeBean> getTreeNode(HttpServletRequest request ,HttpServletResponse response){
 		UserBeanDto user = (UserBeanDto) request.getSession().getAttribute("user");
-		List<MenuTreeBean> list = menuService.queryByUserIdList(user.getUser().getId());
+		List<MenuTreeBean> list = menuService.queryByUserIdList(user.getId());
 		return list;
 	}
 }

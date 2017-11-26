@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.stereotype.Service;
 
 import com.dpb.base.dao.MenuBeanMapper;
@@ -79,7 +78,6 @@ public class MenuServiceImpl implements IMenuService {
 				tree.setUrl(menu.getMenulink());
 				trees.add(tree);
 				// 将该节点添加到父节点中
-				System.out.println("----");
 				getTreeNode(tree.getChildren(),userId,menu.getId());
 			}
 		}

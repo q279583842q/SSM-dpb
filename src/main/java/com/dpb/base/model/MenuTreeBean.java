@@ -15,7 +15,7 @@ public class MenuTreeBean {
 	
 	private String url;
 	
-	private String state ="closed"; //"state":"closed"
+	
 
 	public int getId() {
 		return id;
@@ -56,15 +56,6 @@ public class MenuTreeBean {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-	
 	
 	
 }

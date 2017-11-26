@@ -12,13 +12,13 @@
   </resultMap>
   
   <resultMap id="LoginResultMap" type="com.dpb.base.dto.UserBeanDto">
-    <id column="ID" jdbcType="DECIMAL" property="user.id" />
-    <result column="USERNAME" jdbcType="VARCHAR" property="user.username" />
-    <result column="PWD" jdbcType="VARCHAR" property="user.pwd" />
-    <result column="REALNAME" jdbcType="VARCHAR" property="user.realname" />
-    <result column="SEX" jdbcType="VARCHAR" property="user.sex" />
-    <result column="DEPID" jdbcType="DECIMAL" property="user.depid" />
-    <result column="PHONE" jdbcType="VARCHAR" property="user.phone" />
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="username" />
+    <result column="PWD" jdbcType="VARCHAR" property="pwd" />
+    <result column="REALNAME" jdbcType="VARCHAR" property="realname" />
+    <result column="SEX" jdbcType="VARCHAR" property="sex" />
+    <result column="DEPID" jdbcType="DECIMAL" property="depid" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
     <result column="deptname" jdbcType="VARCHAR" property="deptName" />
   </resultMap>
   
@@ -38,7 +38,7 @@
   	 where username = #{userName}
   </select>
   
-  <select id="query" parameterType="com.dpb.base.model.UserBean" resultMap="LoginResultMap">
+  <select id="query" parameterType="com.dpb.base.dto.UserBeanDto" resultMap="LoginResultMap">
   	select 
   	 	t1.ID,USERNAME, PWD, REALNAME, SEX, DEPID, PHONE, t2.name deptname
  	 from t_user t1  left join t_department t2 on t1.depid = t2.id
@@ -49,7 +49,10 @@
   	 	<if test="realname!=null and realname!=''">
   	 		and realname = #{realname}
   	 	</if>
-  	 	
+  	 	<if test="searchMsg!=null and searchMsg!=''">
+  	 		and (username like '%'||#{searchMsg}||'%' 
+  	 		   or realname like '%'||#{searchMsg}||'%' )
+  	 	</if>
   	 </where>
   </select> 
   
@@ -61,16 +64,16 @@
     insert into T_USER (ID, USERNAME, PWD, 
       REALNAME, SEX, DEPID, 
       PHONE)
-    values (#{id,jdbcType=DECIMAL}, #{username,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, 
+    values (seq_t_user.nextval, #{username,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, 
       #{realname,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{depid,jdbcType=DECIMAL}, 
       #{phone,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.dpb.base.model.UserBean">
     insert into T_USER
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+      
         ID,
-      </if>
+      
       <if test="username != null">
         USERNAME,
       </if>
@@ -91,9 +94,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=DECIMAL},
-      </if>
+      
+        seq_t_user.nextval,
+     
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
       </if>
@@ -148,4 +151,18 @@
       PHONE = #{phone,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
+  <insert id="insertUserAndRole" parameterType="map">
+  	insert into t_user_role(userid,roleid)values(
+  		<if test="userid != null"> 
+  			#{userid},
+  		</if>
+  		<if test="userid == null">
+  			seq_t_user.currval,
+  		</if>
+  		 #{roleid} 
+  		) 
+  </insert>
+  <delete id="deleteByUserIdRoleId" parameterType="int">
+  	delete from t_user_role where userid = #{userid}
+  </delete>
 </mapper>

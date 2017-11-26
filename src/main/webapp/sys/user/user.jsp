@@ -14,128 +14,77 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
 	<script type="text/javascript" src="easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>	
-
+	<script type="text/javascript" src="<%=basePath%>sys/user/user.js"></script>
+<style type="text/css">
+	#addForm td{
+	   padding: 10px;
+	}
+</style>
 </head>
 <body>
+	<!-- 工具栏 -->
 	<div id="toolbar">
-		<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-add">添加</a>
+		<a href="javascript:addUser();" class="easyui-linkbutton" plain="true" iconCls="icon-add">添加</a>
 		<a href="javascript:updateUser();" class="easyui-linkbutton" plain="true" iconCls="icon-save">保存</a>
 		<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-edit">修改</a>
 		<a href="javascript:deleteUser();" class="easyui-linkbutton" plain="true" iconCls="icon-remove">删除</a>
+		<input id="ss" class="easyui-searchbox" style="width:150px" data-options="searcher:searcherKey,prompt:'账号姓名查询'"></input>
+        
 	</div>
+	<!-- 数据网格 -->
     <table id="dg"></table>
     
-    <script type="text/javascript">
-	    var index = 0;
-	    $('#dg').datagrid({
-	        url:'sys/user/query',
-	        fit:true,
-	        loadMsg:'加载中...',
-	        pagination:true,
-	        rownumbers:true,
-	        singleSelect:true,
-	        striped:true,
-	        toolbar:'#toolbar',
-	        rowStyler: function(index,row){
-	    		 /* if (row.id==62){
-	    			return 'background-color:#6293BB;'; // return inline style
-	    			// the function can return predefined css class and inline style
-	    			// return {class:'r1', style:{'color:#fff'}};	
-	    		}  */
-	    	},
-	        columns:[[
-				{
-					field:''
-					,title:''
-					,checkbox:true
-				},
-	    		{
-	    			field:'user.id'
-	    			,title:'编号'
-	    			,width:100
-	    		},
-	    		{
-	    			field:'user.username'
-	    			,title:'账号'
-	    			,width:100
-	    			,editor:'textbox'
-	    		},
-	    		{
-	    			field:'user.pwd'
-	    			,title:'密码'
-	    			,width:100
-	    			,editor:'textbox'
-	    		},
-	    		{
-	    			field:'user.realname'
-	    			,title:'姓名'
-	    			,width:100
-	    			,align:'left'
-	    			,editor:'textbox'
-	    		},
-	    		{
-	    			field:'deptname'
-	    			,title:'部门'
-	    			,width:100
-	    			,editor:'textbox'
-	    		}
-	        ]]
-	    	,onDblClickRow:function(rowIndex, rowData){ // 行双击事件
-	        	//alert(rowData.id+" "+rowIndex);
-	    		 $('#dg').datagrid("endEdit",index);
-	    		// 让当前行进入编辑状态
-	    		 $('#dg').datagrid("beginEdit",rowIndex);
-	    		 index = rowIndex;
-	        }
-	    });
-    
-	    // 保存修改的数据
-	    function updateUser(){
-	    	
-	    	// 要获取修改的那行数据
-	    	var row = $("#dg").datagrid("getSelected");
-	    	// 获取对应的行号
-	    	var rowIndex = $("#dg").datagrid("getRowIndex",row);
-	    	// 关闭行
-	    	$('#dg').datagrid("endEdit",rowIndex);
-	    	//alert(row.id+" "+row.username+" "+rowIndex);
-	    	// 将数据传递到服务端
-	    	$.post("user/update"
-	    		,{"username":row.username
-	    		,"pwd":row.pwd
-	    		,"realname":row.realname
-	    		,"id":row.id}
-	    		,function(msg){
-	    			if(msg=='1'){
-	    				$.messager.alert('提示信息','修改成功');
-	    				//重新加载数据
-	    				$('#dg').datagrid('reload');
-	    			}
-	    	});
-	    }
-	    
-	 // 保存修改的数据
-	    function deleteUser(){
-	    	
-	    	// 要获取修改的那行数据
-	    	var row = $("#dg").datagrid("getSelected");
-	    	// 获取对应的行号
-	    	var rowIndex = $("#dg").datagrid("getRowIndex",row);
-	    	// 关闭行
-	    	$('#dg').datagrid("endEdit",rowIndex);
-	    	//alert(row.id+" "+row.username+" "+rowIndex);
-	    	// 将数据传递到服务端
-	    	$.post("user/delete"
-	    		,{"id":row.id}
-	    		,function(msg){
-	    			if(msg=='1'){
-	    				$.messager.alert('提示信息','删除成功');
-	    				//重新加载数据
-	    				$('#dg').datagrid('reload');
-	    			}
-	    	});
-	    }
-	    
-    </script>
+    <!---------------------------------- 添加用户界面窗口------------------------------------------>
+    <div id="addWin" class="easyui-window" data-options="shadow:true,modal:true" title="添加用户" icon="icon-help" 
+    	style="width:650px;height:300px;padding:10px;background: #fafafa;">
+		<div class="easyui-layout" fit="true">
+			
+			<div region="center" border="false"  >
+				<form id="addForm" method="post" action="<%=basePath%>sys/user/save">
+					<!-- 边框变细 border-collapse:collapse; -->
+					<table border="1" cellspacing="0" bordercolor="#95B8E7" width="100%" style="border-collapse:collapse;">
+			    	<tr>
+			    		<td>账号:</td><td><input class="easyui-validatebox" type="text" name="username" data-options="required:true" /></td>
+			    		<td>密码:</td><td><input class="easyui-validatebox" type="password" name="pwd" data-options="required:true" /></td>
+			    	</tr>
+			    	<tr>
+			    		<td>姓名:</td><td><input class="easyui-validatebox" type="text" name="realname" /></td>
+			    		<td>性别:</td><td>
+			    						<select id="cc" class="easyui-combobox" data-options="panelHeight:'auto'" 
+			    						name="sex" style="width:150px;">
+										    <option value="男">男</option>
+										    <option value="女">女</option>
+										</select>
+			    					</td>
+			    	</tr>
+			    	<tr>
+			    		<td>电话:</td><td><input class="easyui-validatebox"  type="text" name="phone" /></td>
+			    		<td>部门:</td><td><input id="dept" name="depid" style="width:150px;" data-options="panelHeight:'auto'" ></td>
+			    	</tr>
+			    	<tr>
+			    		<td>分配角色:</td><td colspan="3">
+			    			<input class="easyui-combobox" 
+								name="roles" style="width:300px;"
+								data-options="
+										url:'sys/role/queryAll',
+										method:'get',
+										valueField:'id',
+										textField:'rolename',
+										multiple:true,
+										multiline:true,
+										panelHeight:'auto'
+								">
+			    		</td>
+			    	</tr>
+			    	
+			    	</table>
+			</form>
+			</div>
+			<div region="south" border="false" style="text-align:right;height:30px;line-height:30px;">
+				<a class="easyui-linkbutton" icon="icon-save" href="javascript:saveUser();">保存</a>
+				<a class="easyui-linkbutton" icon="icon-cancel" href="javascript:closeWin();">取消</a>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.dpb.base.dto.UserBeanDto;
 import com.dpb.base.model.UserBean;
+import com.github.pagehelper.PageInfo;
 
 public interface IUserService {
 
@@ -34,5 +35,7 @@ public interface IUserService {
      * @param user
      * @return
      */
-    List<UserBeanDto> query(UserBean user);
+    PageInfo<UserBeanDto> query(UserBeanDto user);
+
+	void insertUser(UserBeanDto user) throws RuntimeException;
 }

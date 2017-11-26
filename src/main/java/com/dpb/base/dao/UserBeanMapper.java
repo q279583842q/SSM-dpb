@@ -32,5 +32,9 @@ public interface UserBeanMapper {
      * @param user
      * @return
      */
-    List<UserBeanDto> query(UserBean user);
+    List<UserBeanDto> query(UserBeanDto user);
+
+	void insertUserAndRole(@Param("userid")Integer userid, @Param("roleid")Integer roleid);
+
+	void deleteByUserIdRoleId(Integer userid);
 }

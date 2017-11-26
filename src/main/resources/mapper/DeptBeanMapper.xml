@@ -15,6 +15,11 @@
     from T_DEPARTMENT
     where ID = #{id,jdbcType=DECIMAL}
   </select>
+  
+  <select id="query" parameterType="com.dpb.base.model.DeptBean" resultMap="BaseResultMap">
+  	select * from t_department
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from T_DEPARTMENT
     where ID = #{id,jdbcType=DECIMAL}

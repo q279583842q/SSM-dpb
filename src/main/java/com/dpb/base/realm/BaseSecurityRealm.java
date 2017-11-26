@@ -29,10 +29,8 @@ public class BaseSecurityRealm extends AuthorizingRealm{
 			// 登录失败
 			return null;
 		}
-		System.out.println("------");
-		
 		// 给定一个默认密码
-		String password = user.getUser().getPwd();
+		String password = user.getPwd();
 		SimpleAuthenticationInfo sai = new SimpleAuthenticationInfo(user, password,"abc");
 		return sai;
 	}

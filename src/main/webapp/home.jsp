@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<ul class="nav">
 					
 					<li><a href="<%=basePath %>logout">退出</a></li>
-					<li>欢迎 <font color='red'>${user.user.realname }</font>光临</li>
+					<li>欢迎 <font color='red'>${user.realname }</font>光临</li>
 				</ul>
 				
 			</div>
@@ -67,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	function addUserTab(){
     		$('#tabs').tabs('add',{
     		    title:'用户管理',
-    		    content:'<iframe src="user.jsp" height="97%" width="99%"></iframe>',
+    		    content:'<iframe scrolling="auto" frameborder="0" src="user.jsp" height="100%" width="100%"></iframe>',
     		    closable:true
     		});
     	}

@@ -15,6 +15,9 @@
     from T_ROLE
     where ID = #{id,jdbcType=DECIMAL}
   </select>
+  <select id="query" parameterType="com.dpb.base.model.RoleBean" resultType="com.dpb.base.model.RoleBean">
+  	select * from t_role 
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from T_ROLE
     where ID = #{id,jdbcType=DECIMAL}

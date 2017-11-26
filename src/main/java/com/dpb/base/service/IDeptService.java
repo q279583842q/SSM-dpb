@@ -1,11 +1,12 @@
-package com.dpb.base.dao;
+package com.dpb.base.service;
 
 import java.util.List;
 
 import com.dpb.base.model.DeptBean;
 
-public interface DeptBeanMapper {
-    int deleteByPrimaryKey(Integer id);
+public interface IDeptService {
+
+	int deleteByPrimaryKey(Integer id);
 
     int insert(DeptBean record);
 
@@ -18,4 +19,6 @@ public interface DeptBeanMapper {
     int updateByPrimaryKey(DeptBean record);
     
     List<DeptBean> query(DeptBean record);
+    
+    List<DeptBean> queryAll(DeptBean record);
 }
