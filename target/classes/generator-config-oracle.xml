@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+   <!-- 数据库的驱动包路径 -->
+  <classPathEntry location="C:\oraclexe\app\oracle\product\10.2.0\server\jdbc\lib\ojdbc14.jar" />
+
+  <context id="DB2Tables" targetRuntime="MyBatis3">
+  <!-- 去掉生成文件中的注释 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+  	<!-- 数据库链接URL、用户名、密码 --> 
+    <!-- <jdbcConnection driverClass="com.mysql.jdbc.Driver"  
+        connectionURL="jdbc:mysql://localhost:3306/webank"  
+        userId="root"  
+        password="123456">  
+    </jdbcConnection>   -->
+    <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" 
+          connectionURL="jdbc:oracle:thin:@localhost:1521:XE" 
+          userId="car" 
+          password="car"> 
+  </jdbcConnection> 
+	
+    <javaTypeResolver >
+      <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+	<!-- 生成模型的包名和位置 --> 
+    <javaModelGenerator targetPackage="com.dpb.base.model" targetProject="ssm_mycar\src\main\java">
+    	<!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] --> 
+      <property name="enableSubPackages" value="false" />
+      <property name="trimStrings" value="true" />
+    </javaModelGenerator>
+ 	<!-- 生成的映射文件包名和位置 -->
+    <sqlMapGenerator targetPackage="mapper"  targetProject="ssm_mycar\src\main\resources">
+      <property name="enableSubPackages" value="false" />
+    </sqlMapGenerator>
+ 	<!-- 生成DAO的包名和位置 --> 
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.dpb.base.dao"  targetProject="ssm_mycar\src\main\java">
+      <property name="enableSubPackages" value="false" />
+    </javaClientGenerator>
+    
+     <!-- <table  tableName="t_user" domainObjectName="UserBean" 
+       enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+      
+    </table>  -->
+    <table  tableName="t_role" domainObjectName="RoleBean"
+       enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+      
+    </table>
+    <table  tableName="t_menu" domainObjectName="MenuBean" schema="car"
+       enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+    </table>
+    <table  tableName="t_department" domainObjectName="DeptBean" 
+       enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+      
+    </table>
+    <!-- <table  tableName="OWNED_VEHICLE" domainObjectName="OwnedVehicle" schema="car"  
+       enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+      
+    </table>
+    <table  tableName="RENTAL_VEHICLE" domainObjectName="RentalVehicle" schema="car"  
+       enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+      
+    </table>
+    <table  tableName="USE_VEHICLE_APPLICATION" domainObjectName="UseVehicleApplication" schema="car"  
+       enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+      
+    </table>
+    <table  tableName="USE_VEHICLE_REGISTER" domainObjectName="UseVehicleRegister" schema="car"  
+       enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+      
+    </table> -->
+  </context>
+</generatorConfiguration>

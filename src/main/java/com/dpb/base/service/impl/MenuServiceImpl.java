@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.dpb.base.dao.MenuBeanMapper;
+import com.dpb.base.dto.MenuBeanDto;
 import com.dpb.base.model.MenuBean;
 import com.dpb.base.model.MenuTreeBean;
 import com.dpb.base.service.IMenuService;
@@ -68,7 +69,7 @@ public class MenuServiceImpl implements IMenuService {
 	 * @param userId 用户id
 	 * @param parentId 父id
 	 */
-	public void getTreeNode(List<MenuTreeBean> trees,int userId,int parentId){
+	public void getTreeNode(List<MenuTreeBean> trees,Integer userId,int parentId){
 		List<MenuBean> list = dao.queryByUserIdList(userId, parentId);
 		if(list != null && list.size() > 0){
 			for (MenuBean menu : list) {
@@ -79,6 +80,25 @@ public class MenuServiceImpl implements IMenuService {
 				trees.add(tree);
 				// 将该节点添加到父节点中
 				getTreeNode(tree.getChildren(),userId,menu.getId());
+			}
+		}
+	}
+
+	@Override
+	public List<MenuBeanDto> query(MenuBean menu) {
+		List<MenuBeanDto> trees = new ArrayList<>();
+		getMenuBeanDto(trees, 0);
+		return trees;
+	}
+	
+	public void getMenuBeanDto(List<MenuBeanDto> trees,int parentId){
+		MenuBean menu  = new MenuBean();
+		menu.setPid(parentId);
+		List<MenuBeanDto> list = dao.query(menu);
+		if(list != null && list.size() > 0){
+			for (MenuBeanDto m : list) {
+				trees.add(m);
+				getMenuBeanDto(m.getChildren(), m.getId());
 			}
 		}
 	}

@@ -14,8 +14,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
 	<script type="text/javascript" src="easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="<%=basePath%>sys/menu/menu.js"></script>
 </head>
 <body>
-	菜单管理
+	<!-- 工具栏 -->
+	<div id="toolbar">
+		<a href="javascript:addUser();" class="easyui-linkbutton" plain="true" iconCls="icon-add">添加</a>
+		<a href="javascript:updateUser();" class="easyui-linkbutton" plain="true" iconCls="icon-save">保存</a>
+		<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-edit">修改</a>
+		<a href="javascript:deleteUser();" class="easyui-linkbutton" plain="true" iconCls="icon-remove">删除</a>
+		<input id="ss" class="easyui-searchbox" style="width:150px" data-options="searcher:searcherKey,prompt:'角色查询'"></input>
+	</div>
+	<!-- 数据网格 -->
+    <table id="dg"></table>
 </body>
 </html>

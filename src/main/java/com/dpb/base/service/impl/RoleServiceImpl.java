@@ -7,8 +7,12 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.dpb.base.dao.RoleBeanMapper;
+import com.dpb.base.dto.RoleBeanDto;
+import com.dpb.base.dto.UserBeanDto;
 import com.dpb.base.model.RoleBean;
 import com.dpb.base.service.IRoleService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @Service
 public class RoleServiceImpl implements IRoleService {
@@ -52,9 +56,14 @@ public class RoleServiceImpl implements IRoleService {
 	}
 
 	@Override
-	public List<RoleBean> query(RoleBean role) {
-		// TODO Auto-generated method stub
-		return dao.query(role);
+	public PageInfo<RoleBean> query(RoleBeanDto role) {
+		// 指定分页信息
+		PageHelper.startPage(role.getPage(),role.getRows());
+		// 执行查询操作
+		List<RoleBean> list = dao.query(role);
+		// 将数据保存到PageInfo对象中
+		PageInfo<RoleBean> page = new PageInfo<>(list);
+		return page;
 	}
 
 	@Override

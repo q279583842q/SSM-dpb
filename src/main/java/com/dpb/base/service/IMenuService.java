@@ -2,6 +2,7 @@ package com.dpb.base.service;
 
 import java.util.List;
 
+import com.dpb.base.dto.MenuBeanDto;
 import com.dpb.base.model.MenuBean;
 import com.dpb.base.model.MenuTreeBean;
 
@@ -20,4 +21,7 @@ public interface IMenuService {
     int updateByPrimaryKey(MenuBean record);
     
     List<MenuTreeBean> queryByUserIdList(int userId);
+
+	List<MenuBeanDto> query(MenuBean menu);
+
 }

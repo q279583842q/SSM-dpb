@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.dpb.base.dto.MenuBeanDto;
 import com.dpb.base.model.MenuBean;
 
 public interface MenuBeanMapper {
@@ -20,4 +21,6 @@ public interface MenuBeanMapper {
     int updateByPrimaryKey(MenuBean record);
     
     List<MenuBean> queryByUserIdList(@Param("userId")int userId,@Param("parentId")int parentId);
+    
+    List<MenuBeanDto> query(MenuBean menu);
 } 

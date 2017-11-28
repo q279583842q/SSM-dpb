@@ -2,7 +2,9 @@ package com.dpb.base.service;
 
 import java.util.List;
 
+import com.dpb.base.dto.RoleBeanDto;
 import com.dpb.base.model.RoleBean;
+import com.github.pagehelper.PageInfo;
 
 public interface IRoleService {
 
@@ -23,7 +25,7 @@ public interface IRoleService {
      * @param role
      * @return
      */
-    List<RoleBean> query(RoleBean role);
+    PageInfo<RoleBean> query(RoleBeanDto role);
     
     /**
      * 查询所有

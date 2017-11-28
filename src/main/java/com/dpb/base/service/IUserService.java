@@ -19,7 +19,7 @@ public interface IUserService {
 
     UserBean selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(UserBean record);
+    int updateByPrimaryKeySelective(UserBeanDto record);
 
     int updateByPrimaryKey(UserBean record);
     

@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="toolbar">
 		<a href="javascript:addUser();" class="easyui-linkbutton" plain="true" iconCls="icon-add">添加</a>
 		<a href="javascript:updateUser();" class="easyui-linkbutton" plain="true" iconCls="icon-save">保存</a>
-		<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-edit">修改</a>
+		<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-edit">分配角色</a>
 		<a href="javascript:deleteUser();" class="easyui-linkbutton" plain="true" iconCls="icon-remove">删除</a>
 		<input id="ss" class="easyui-searchbox" style="width:150px" data-options="searcher:searcherKey,prompt:'账号姓名查询'"></input>
         

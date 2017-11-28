@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>XX电子派车系统</title>
 <link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
 	<script type="text/javascript" src="easyui/jquery.min.js"></script>
@@ -75,8 +75,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		$("#tt").tree({
         		url:"<%=basePath%>getTreeNode",
         		onClick: function(node){
-        			if(node.url != null){
+        			if(node.url != null || node.url != '无'){
         				//window.location.href=<%=basePath%>+node.url;
+        				//alert(1+" "+node.url);
         				// 打开一个新的窗口
         				$('#tabs').tabs('add',{
         				    title:node.text,

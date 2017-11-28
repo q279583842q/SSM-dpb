@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.dpb.base.dao.UserBeanMapper;
@@ -46,7 +47,10 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public int updateByPrimaryKeySelective(UserBean record) {
+	public int updateByPrimaryKeySelective(UserBeanDto record) {
+		if(record.getDepid() == null && (record.getDeptName()!=null && !"".equals(record.getDeptName()))){
+			record.setDepid(Integer.parseInt(record.getDeptName()));
+		}
 		// TODO Auto-generated method stub
 		return dao.updateByPrimaryKeySelective(record);
 	}
